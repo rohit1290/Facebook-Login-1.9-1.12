@@ -9,7 +9,6 @@ function facebook_connect_get_fbdata() {
 elgg_load_library('facebook');
 $fbData = array();
 $facebook = facebookservice_api();
-
 $helper = $facebook->getRedirectLoginHelper();  
 try {  
   $accessToken = $helper->getAccessToken();
@@ -22,7 +21,6 @@ try {
   echo '2. Facebook SDK returned an error: ' . $e->getMessage();  
   exit;  
 }  
-
 if (!isset($accessToken)) {  
   if ($helper->getError()) {  
     header('HTTP/1.0 401 Unauthorized');  
@@ -36,7 +34,6 @@ if (!isset($accessToken)) {
   }  
   exit;  
 }  
-
 if (! $accessToken->isLongLived()) {  
   // Exchanges a short-lived access token for a long-lived one  
   try {  
@@ -46,7 +43,6 @@ if (! $accessToken->isLongLived()) {
     exit;  
   } 
 }
-
 $fbData['user_profile']['accessToken'] = (string) $accessToken;
 	
 try {
@@ -59,21 +55,21 @@ try {
   echo '1. Facebook SDK returned an error: ' . $e->getMessage();
   exit;
 }
-
 $user = $response->getGraphUser();
 $fbData['user_profile']['id'] = $user['id'];
 $fbData['user_profile']['name'] = $user['name'];
 $fbData['user_profile']['email'] = $user->getProperty("email");
 $u = explode("@", $fbData['user_profile']['email']);
 $fbData['user_profile']['username'] = $u[0];
-
 if($user) {
 		$fbData['loginUrl']='';
 	} else {
 		$permissions = ['public_profile','email'];
+		if(facebook_connect_allow_post_on_facebook()) { 
+		$permissions = ['public_profile','email','publish_actions'];
+		}
 		$fbData['loginUrl'] = $helper->getLoginUrl(elgg_get_site_url().'facebook_connect/login/', $permissions);
 	}
-
 	return $fbData;
 }
 /**
@@ -140,7 +136,6 @@ function facebook_connect_login() {
 				register_error($e->getMessage());
 				forward(REFERER);
 			}
-
 		}
 		// register login error
 		register_error(elgg_echo('facebook_connect:login:error'));
@@ -206,7 +201,6 @@ function facebook_connect_create_update_user($fbData) {
 	if (is_array($facebook_users) && count($facebook_users) == 1) {
 		// convert existing account
 		$user = $facebook_users[0];
-
 		// remove unused metadata
 		remove_metadata($user->getGUID(), 'facebook_uid');
 		remove_metadata($user->getGUID(), 'facebook_controlled_profile');
@@ -248,10 +242,8 @@ function facebook_connect_create_update_user($fbData) {
 			} else {
 				// send mail to user
 				send_user_password_mail($email, $name, $username, $password);
-
 				// post status on facebook
 				facebook_connect_post_status($fbData);
-
 				// pull in facebook icon
 				$url = 'https://graph.facebook.com/' . $fbData['user_profile']['id'] .'/picture?type=large';
 				facebook_connect_update_user_avatar($user, $url);
@@ -288,7 +280,6 @@ function facebook_connect_update_user_avatar($user, $file_location) {
 		'large' => array(200, 200, FALSE),
 		'master' => array(550, 550, FALSE),
 	);
-
 	$filehandler = new ElggFile();
 	$filehandler->owner_guid = $user->getGUID();
 	foreach ($sizes as $size => $dimensions)
@@ -299,13 +290,11 @@ function facebook_connect_update_user_avatar($user, $file_location) {
 			$dimensions[1],
 			$dimensions[2]
 		);
-
 		$filehandler->setFilename("profile/$user->guid$size.jpg");
 		$filehandler->open('write');
 		$filehandler->write($image);
 		$filehandler->close();
 	}
-
 	// update user's icontime
 	$user->icontime = time();
 	return TRUE;
@@ -318,29 +307,37 @@ function facebook_connect_update_user_avatar($user, $file_location) {
  * @return void
  */
 function facebook_connect_post_status($fbData) {
-	/*
-	if(facebook_connect_allow_post_on_facebook()) {
+
 		elgg_load_library('facebook');
-		$facebook = facebookservice_api();
+		$fb = facebookservice_api();
 		$site = elgg_get_site_entity();
 		$uid = $fbData['user_profile']['id'];
-		$permissions = $facebook->api('/'.$uid.'/permissions');
-		if(array_key_exists('publish_stream', $permissions['data'][0])) {
-			$message = $user->name . ' just synched his/her facebook account with ' . $site->name;
-			$params = array (
-				'link' => elgg_get_site_url(),
-				'message' => $message,
-				'picture' => elgg_get_site_url() .'_graphics/elgg_logo.png',
-				'description' => $site->name . ' is the social network for connecting people.'
-			);
-			try {
-				$status = $facebook->api('/'.$uid.'/feed/','POST',$params);
-			} catch (FacebookApiException $e){
+		$access_token = $fbData['user_profile']['accessToken']
 
-			}
+		// Facebook Posting Parameters //
+		$link = elgg_get_site_url();
+		$message = $user->name . ' just synched his/her facebook account with ' . $site->name;
+		$picture = elgg_get_site_url() .'_graphics/elgg_logo.png';
+		$description = $site->name . ' is the social network for connecting people.';
+
+		$linkData = [
+		  'link' => $link,
+		  'message' => $message,
+		  'picture' => $picture,
+		  'description' => $description
+		  ];
+
+		try {
+		  // Returns a `Facebook\FacebookResponse` object
+		  $response = $fb->post('/'.$uid.'/feed', $linkData, "$access_token");
+		} catch(Facebook\Exceptions\FacebookResponseException $e) {
+		  echo '3. Graph returned an error: ' . $e->getMessage();
+		  exit;
+		} catch(Facebook\Exceptions\FacebookSDKException $e) {
+		  echo '3. Facebook SDK returned an error: ' . $e->getMessage();
+		  exit;
 		}
-	}
-	*/
+
 }
 /**
  * Used to Create facebook object with app id and secret code
