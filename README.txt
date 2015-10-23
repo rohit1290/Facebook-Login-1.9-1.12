@@ -16,6 +16,10 @@ otherwise this plugin will auto register the facebook user and send login detail
 
 
 Changes:
+ver 1.9.2
+- Code fixed; Missing semicolon
+- Code Cleanup
+
 ver 1.9.1
 - Publish Post to facebook when a new account is created.
 

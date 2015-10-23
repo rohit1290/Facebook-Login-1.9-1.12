@@ -87,7 +87,7 @@ function facebook_connect_login() {
 	if(elgg_is_logged_in()) {
 		forward();
 	}
-	$facebook = facebookservice_api();
+
 	$fbData = facebook_connect_get_fbdata();
 	if(isset($_GET['error'])) {
 		forward();
@@ -150,7 +150,6 @@ function facebook_connect_login() {
  */
 function facebook_connect_add_account() {
 	elgg_load_library('facebook');
-	$facebook = facebookservice_api();
 	$fbData = facebook_connect_get_fbdata();
 	if(isset($_GET['error'])) {
 		forward();
@@ -187,7 +186,6 @@ function facebook_connect_add_account() {
  */
 function facebook_connect_create_update_user($fbData) {
 	elgg_load_library('facebook');
-	$facebook = facebookservice_api();
 	// need facebook account credentials
 	// backward compatibility for stalled-development FBConnect plugin
 	$user = FALSE;
@@ -312,7 +310,7 @@ function facebook_connect_post_status($fbData) {
 		$fb = facebookservice_api();
 		$site = elgg_get_site_entity();
 		$uid = $fbData['user_profile']['id'];
-		$access_token = $fbData['user_profile']['accessToken']
+		$access_token = $fbData['user_profile']['accessToken'];
 
 		// Facebook Posting Parameters //
 		$link = elgg_get_site_url();
