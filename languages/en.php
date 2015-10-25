@@ -15,6 +15,7 @@ $english = array(
 
 	'facebook_connect:usersettings:description' => "Link your %s account with Facebook.",
 	'facebook_connect:usersettings:request' => "You must first <a href=\"%s\">authorize</a> %s to access your Facebook account.",
+	'facebook_connect:usersettings:logout_required' => 'You must first authorize %s to access your Facebook account. Request you to kindly logout and login agian.',
 	'facebook_connect:authorize:error' => 'Unable to authorize Facebook.',
 	'facebook_connect:authorize:success' => 'Facebook access has been authorized.',
 

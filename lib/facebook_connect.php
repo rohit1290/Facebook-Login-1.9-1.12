@@ -10,7 +10,7 @@ elgg_load_library('facebook');
 $fbData = array();
 $facebook = facebookservice_api();
 $helper = $facebook->getRedirectLoginHelper();  
-try {  
+try { 
   $accessToken = $helper->getAccessToken();
 } catch(Facebook\Exceptions\FacebookResponseException $e) {  
   // When Graph returns an error  
@@ -34,15 +34,7 @@ if (!isset($accessToken)) {
   }  
   exit;  
 }  
-if (! $accessToken->isLongLived()) {  
-  // Exchanges a short-lived access token for a long-lived one  
-  try {  
-    $accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);  
-  } catch (Facebook\Exceptions\FacebookSDKException $e) {  
-    echo "<p>Error getting long-lived access token: " . $helper->getMessage() . "</p>";  
-    exit;  
-  } 
-}
+
 $fbData['user_profile']['accessToken'] = (string) $accessToken;
 	
 try {

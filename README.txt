@@ -16,6 +16,10 @@ otherwise this plugin will auto register the facebook user and send login detail
 
 
 Changes:
+ver 1.9.3
+- Attempt to fix facebook SDK Error "Cross-site request forgery validation failed. The "state" param from the URL and session do not match."
+- Added German Language (Contributed by: lweddewer - https://github.com/lweddewer)
+
 ver 1.9.2
 - Code fixed; Missing semicolon
 - Code Cleanup

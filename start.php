@@ -5,7 +5,7 @@ elgg_register_event_handler('init', 'system', 'facebook_connect_init');
 function facebook_connect_init() {
 	global $CONFIG;
 	$base = elgg_get_plugins_path() . 'facebook_connect';
-	elgg_register_library('facebook', "$base/vendors/facebook/autoload.php");
+	elgg_register_library('facebook', "$base/vendors/Facebook/autoload.php");
 	elgg_register_library('facebook_connect', "$base/lib/facebook_connect.php");
 
 	elgg_load_library('facebook_connect');

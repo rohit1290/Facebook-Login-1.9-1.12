@@ -8,7 +8,7 @@ echo '<div>' . elgg_echo('facebook_connect:usersettings:description', array($sit
 
 if (!$facebook_id) {
 	// send user off to validate account
-	echo "<div>You must first authorize $site_name to access your Facebook account. Request you to kindly logout and login agian.</div>";
+	echo '<div>' .  elgg_echo('facebook_connect:usersettings:logout_required', array($site_name)) . '</div>';
 } else {
 	elgg_load_library('facebook');
 	$facebook = facebookservice_api();
