@@ -12,6 +12,8 @@ function facebook_connect_init() {
 
 	elgg_extend_view('css/elgg', 'facebook_connect/css');
 
+	elgg_extend_view('profile/status', 'profile/fb_user_details', 500);
+	
 	// sign on with facebook
 	if (facebook_connect_allow_sign_on_with_facebook()) {
 		elgg_extend_view('login/extend', 'facebook_connect/login');
