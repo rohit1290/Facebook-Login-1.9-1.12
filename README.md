@@ -21,7 +21,7 @@ otherwise this plugin will auto register the facebook user and send login detail
 ###Changes:
 
 **ver 1.9.3 (Improvement 01)**
-- Attempt to fix facebook SDK Error (Changed EOL to Dos\Windows/Dos and File Encode to UTF-8 w/o BOM)
+- Attempt to fix facebook SDK Error (Changed EOL to Dos\Windows and File Encode to UTF-8 w/o BOM)
 - Added Facebook Profile link of user in profile page.
 
 **ver 1.9.3**
