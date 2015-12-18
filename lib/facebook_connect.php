@@ -18,7 +18,7 @@ try {
   exit;  
 } catch(Facebook\Exceptions\FacebookSDKException $e) {  
   // When validation fails or other local issues  
-  echo '2. Facebook SDK returned an error: ' . $e->getMessage();  
+  echo '2. Facebook SDK returned an error: ' . $e->getMessage();
   exit;  
 }  
 if (!isset($accessToken)) {  
@@ -256,8 +256,8 @@ function facebook_connect_create_update_user($fbData) {
  * @return void
  */
 function facebook_connect_update_user_avatar($user, $file_location) {
-	global $CONFIG;
-	$tempfile=$CONFIG->dataroot.$user->getGUID().'img.jpg';
+	$path = elgg_get_data_path();
+	$tempfile = $path . $user->getGUID() . 'img.jpg';
 	$imgContent = file_get_contents($file_location);
 	$fp = fopen($tempfile, "w");
 	fwrite($fp, $imgContent);
@@ -297,7 +297,7 @@ function facebook_connect_update_user_avatar($user, $file_location) {
  * @return void
  */
 function facebook_connect_post_status($fbData) {
-
+/*
 		elgg_load_library('facebook');
 		$fb = facebookservice_api();
 		$site = elgg_get_site_entity();
@@ -327,7 +327,7 @@ function facebook_connect_post_status($fbData) {
 		  echo '3. Facebook SDK returned an error: ' . $e->getMessage();
 		  exit;
 		}
-
+*/
 }
 /**
  * Used to Create facebook object with app id and secret code
@@ -340,7 +340,7 @@ function facebookservice_api() {
 	return new Facebook\Facebook([
   'app_id' => elgg_get_plugin_setting('consumer_key', 'facebook_connect'),
   'app_secret' => elgg_get_plugin_setting('consumer_secret', 'facebook_connect'),
-  'default_graph_version' => 'v2.2',
+  'default_graph_version' => 'v2.5',
   ]);
 }
 /**
