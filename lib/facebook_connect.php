@@ -233,7 +233,9 @@ function facebook_connect_create_update_user($fbData) {
 				// send mail to user
 				send_user_password_mail($email, $name, $username, $password);
 				// post status on facebook
+				if(facebook_connect_allow_post_on_facebook()) { 
 				facebook_connect_post_status($fbData);
+				}
 				// pull in facebook icon
 				$url = 'https://graph.facebook.com/' . $fbData['user_profile']['id'] .'/picture?type=large';
 				facebook_connect_update_user_avatar($user, $url);
@@ -297,7 +299,6 @@ function facebook_connect_update_user_avatar($user, $file_location) {
  * @return void
  */
 function facebook_connect_post_status($fbData) {
-/*
 		elgg_load_library('facebook');
 		$fb = facebookservice_api();
 		$site = elgg_get_site_entity();
@@ -327,7 +328,6 @@ function facebook_connect_post_status($fbData) {
 		  echo '3. Facebook SDK returned an error: ' . $e->getMessage();
 		  exit;
 		}
-*/
 }
 /**
  * Used to Create facebook object with app id and secret code

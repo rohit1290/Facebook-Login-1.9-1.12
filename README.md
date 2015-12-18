@@ -24,6 +24,9 @@ Note: 1.9.3 is still under development.
 
 ###Changes:
 
+**ver 1.9.3 (Improvement 03)**
+- Fixed facebook_connect_post_status function
+
 **ver 1.9.3 (Improvement 02)**
 - Updated SDK version to 2.5
 - Updated source code for elgg data path from $CONFIG to elgg_get_data_path() (Old source code was not working in 1.12.5)
@@ -51,7 +54,6 @@ Note: 1.9.3 is still under development.
 - Link the facebook profile to elgg profile where there is a match of email ID.
 
 ###To Do List
-- Fix facebook_connect_post_status() that was commented out in ver 1.9.3 (Improvement 02)
 - Fix facebook SDK Error
 
 #####Note:
