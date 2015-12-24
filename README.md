@@ -17,12 +17,10 @@ https://github.com/anirupdutta/facebook_api
 If Facebook user is already registered on your network then this plugin will associate site account with facebook account 
 otherwise this plugin will auto register the facebook user and send login details to user email address.
 
-###Stable Release
-- 1.9.2
-
-Note: 1.9.3 is still under development.
-
 ###Changes:
+
+**ver 1.9.3 (Improvement 04)**
+- Fixed: Issue related to Facebook SDK Error
 
 **ver 1.9.3 (Improvement 03)**
 - Fixed facebook_connect_post_status function
@@ -53,8 +51,5 @@ Note: 1.9.3 is still under development.
 - Login to the profile whose email ID already exist.
 - Link the facebook profile to elgg profile where there is a match of email ID.
 
-###To Do List
-- Fix facebook SDK Error
-
 #####Note:
-Facebook posting requires "publish_actions" to be approved in your facebook application. Do not enable facebook posting until and unless you have "publish_actions" approved before enabling it. If not, then the plugin would genereate a redirect loop error as it won't be able to get "publish_actions" as approved API when pulling user data at the time of login/registration.
+Facebook posting requires "publish_actions" to be approved in your facebook application. Do not enable facebook posting until and unless you have "publish_actions" approved before enabling it. If not, then the plugin would generate a redirect loop error as it won't be able to get "publish_actions" as approved API when pulling user data at the time of login/registration.

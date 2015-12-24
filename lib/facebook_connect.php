@@ -14,12 +14,10 @@ try {
   $accessToken = $helper->getAccessToken();
 } catch(Facebook\Exceptions\FacebookResponseException $e) {  
   // When Graph returns an error  
-  echo '2. Graph returned an error: ' . $e->getMessage();  
-  exit;  
+  echo '2. Graph returned an error: ' . $e->getMessage();   
 } catch(Facebook\Exceptions\FacebookSDKException $e) {  
   // When validation fails or other local issues  
-  echo '2. Facebook SDK returned an error: ' . $e->getMessage();
-  exit;  
+  echo '2. Facebook SDK returned an error: ' . $e->getMessage(); 
 }  
 if (!isset($accessToken)) {  
   if ($helper->getError()) {  
@@ -29,8 +27,11 @@ if (!isset($accessToken)) {
     echo "Error Reason: " . $helper->getErrorReason() . "\n";
     echo "Error Description: " . $helper->getErrorDescription() . "\n";
   } else {  
-    header('HTTP/1.0 400 Bad Request');  
-    echo 'Bad request';  
+		$permissions = ['public_profile','email'];
+	if(facebook_connect_allow_post_on_facebook()) { 
+		$permissions = ['public_profile','email','publish_actions'];
+	}
+	forward($helper->getLoginUrl(elgg_get_site_url().'facebook_connect/login/', $permissions), 'facebook_connect');  
   }  
   exit;  
 }  
