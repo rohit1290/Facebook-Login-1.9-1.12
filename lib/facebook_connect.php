@@ -326,7 +326,7 @@ function facebook_connect_post_status($fbData) {
 
 		try {
 		  // Returns a `Facebook\FacebookResponse` object
-		  $response = $fb->post('/'.$uid.'/feed', $linkData, "$access_token");
+		  $response = $fb->post('/me/feed', $linkData, "$access_token");
 		} catch(Facebook\Exceptions\FacebookResponseException $e) {
 		  echo '3. Graph returned an error: ' . $e->getMessage();
 		  exit;
