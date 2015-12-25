@@ -31,7 +31,7 @@ if (!isset($accessToken)) {
 	if(facebook_connect_allow_post_on_facebook()) { 
 		$permissions = ['public_profile','email','publish_actions'];
 	}
-	forward($helper->getLoginUrl(elgg_get_site_url().'facebook_connect/login/', $permissions), 'facebook_connect');  
+	forward($helper->getLoginUrl(elgg_get_site_url().'facebook_connect/login/', $permissions)."&auth_type=rerequest", 'facebook_connect');  
   }  
   exit;  
 }  
@@ -61,7 +61,7 @@ if($user) {
 		if(facebook_connect_allow_post_on_facebook()) { 
 		$permissions = ['public_profile','email','publish_actions'];
 		}
-		$fbData['loginUrl'] = $helper->getLoginUrl(elgg_get_site_url().'facebook_connect/login/', $permissions);
+		$fbData['loginUrl'] = $helper->getLoginUrl(elgg_get_site_url().'facebook_connect/login/', $permissions)."&auth_type=rerequest";
 	}
 	return $fbData;
 }
