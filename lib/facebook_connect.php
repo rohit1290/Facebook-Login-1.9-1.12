@@ -227,6 +227,11 @@ function facebook_connect_create_update_user($fbData) {
 			$user->password = generate_user_password($user, $password);
 			$user->owner_guid = 0;
 			$user->container_guid = 0;
+			$user->last_action = date("Y-m-d");
+			$user->last_login = date("Y-m-d");
+			$user->validated = 1;
+			$user->validated_method = 'facebook';
+			$user->language = 'en';			
 			if (!$user->save()) {
 				register_error(elgg_echo('registerbad'));
 				forward();
