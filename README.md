@@ -9,15 +9,19 @@ https://github.com/anirupdutta/facebook_api
 1. If you have any old version of the plugin, then first delete existing folder of facebook_connect.
 2. Copy faceook_connect in mod folder and make sure plugin folder name is facebook_connect
 3. Login with your admin account and activate facebook connect plugin
-4. Now Click on Setting and enter your facebook application api key and secret code
-5. You can set other setting like positng to facebook, allow user to register even if manual registration is disabled etc.
-6. Now you can see facebook login button on login page
+4. [Create a Facebook application](https://developers.facebook.com/apps/) and note your API key (decimal) and App secret (hexadecimal)
+5. Log in to Elgg with an admin account and activate this plugin.
+6. Click on "Settings" and enter your Facebook application API key, secret number, and any other settings you wish.
+7. Now you can see facebook login button on login page
 
-
-If Facebook user is already registered on your network then this plugin will associate site account with facebook account 
-otherwise this plugin will auto register the facebook user and send login details to user email address.
+If Facebook user is already registered on your network then this plugin will associate site account with facebook account otherwise this plugin will auto register the facebook user and send login details to user email address.
 
 ###Changes:
+
+**ver 1.9.4**
+- Added few more systemdata tags
+- Re-ask for denied permissions
+- Facebook Post - Fixed graph error
 
 **ver 1.9.3 (Improvement 04)**
 - Fixed: Issue related to Facebook SDK Error
