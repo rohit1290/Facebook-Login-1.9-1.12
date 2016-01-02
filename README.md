@@ -18,6 +18,11 @@ If Facebook user is already registered on your network then this plugin will ass
 
 ###Changes:
 
+**ver 1.9.5**
+- Feature: User can add custome message, picture and description while posting message on facebook.
+- Feature: Test facebook_connect parameters by visiting the url www.yourelgg.com/mod/facebook_connect/test_param.php
+- Code Cleanup (Deleted unused files)
+ 
 **ver 1.9.4**
 - Added few more systemdata tags
 - Re-ask for denied permissions

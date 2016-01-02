@@ -45,6 +45,31 @@ $post_on_facebook_view = elgg_view('input/dropdown', array(
 	'value' => $vars['entity']->post_onfb ? $vars['entity']->post_onfb : 'no',
 ));
 
+// Posting on Facebook
+
+$post_message_string = elgg_echo('facebook_connect:post_message',array($vars['config']->sitename));
+$post_message_view = elgg_view('input/text', array(
+	'name' => 'params[post_message]',
+	'value' => $vars['entity']->post_message,
+	'class' => 'text_input',
+));
+
+$post_img_string = elgg_echo('facebook_connect:post_img',array(elgg_get_site_url()));
+$post_img_view = elgg_view('input/url', array(
+	'name' => 'params[post_img]',
+	'value' => $vars['entity']->post_img,
+	'class' => 'text_input',
+));
+
+$post_descp_string = elgg_echo('facebook_connect:post_descp',array($vars['config']->sitename));
+$post_descp_view = elgg_view('input/text', array(
+	'name' => 'params[post_descp]',
+	'value' => $vars['entity']->post_descp,
+	'class' => 'text_input',
+));
+
+$post_headder_string = elgg_echo('facebook_connect:post_headder');
+
 $settings = <<<__HTML
 <div>$insert_view</div>
 <div>$consumer_key_string $consumer_key_view</div>
@@ -52,6 +77,12 @@ $settings = <<<__HTML
 <div>$sign_on_with_facebook_string $sign_on_with_facebook_view</div>
 <div>$new_users_with_facebook $new_users_with_facebook_view</div>
 <div>$post_on_facebook $post_on_facebook_view</div>
+<hr>
+<div>$post_headder_string</div>
+<br>
+<div>$post_message_string $post_message_view</div>
+<div>$post_img_string $post_img_view</div>
+<div>$post_descp_string $post_descp_view</div>
 __HTML;
 
 echo $settings;

@@ -230,7 +230,6 @@ function facebook_connect_create_update_user($fbData) {
 			$user->last_action = date("Y-m-d");
 			$user->last_login = date("Y-m-d");
 			$user->validated = 1;
-			$user->validated_method = 'facebook';
 			$user->language = 'en';			
 			if (!$user->save()) {
 				register_error(elgg_echo('registerbad'));
@@ -313,9 +312,26 @@ function facebook_connect_post_status($fbData) {
 
 		// Facebook Posting Parameters //
 		$link = elgg_get_site_url();
-		$message = $user->name . ' just synched his/her facebook account with ' . $site->name;
-		$picture = elgg_get_site_url() .'_graphics/elgg_logo.png';
-		$description = $site->name . ' is the social network for connecting people.';
+		$username = $user->name;
+		$sitename = $vars['config']->sitename;
+		
+		$message = $username . ' just synched his/her facebook account with ' . $sitename;
+		$picture = $link .'_graphics/elgg_logo.png';
+		$description = $sitename . ' is the social network for connecting people.';
+		
+		if(!empty(elgg_get_plugin_setting('post_message', 'facebook_connect'))){
+		$temp_str = elgg_get_plugin_setting('post_message', 'facebook_connect');
+		$temp_str2 = str_replace("%username%", "$username", $temp_str);
+		$message = str_replace("%sitename%", "$sitename", $temp_str2);
+		}
+		if(!empty(elgg_get_plugin_setting('post_img', 'facebook_connect'))){
+		$picture = elgg_get_plugin_setting('post_img', 'facebook_connect');
+		}
+		if(!empty(elgg_get_plugin_setting('post_descp', 'facebook_connect'))){
+		$temp_str = elgg_get_plugin_setting('post_descp', 'facebook_connect');
+		$temp_str2 = str_replace("%username%", "$username", $temp_str);
+		$description = str_replace("%sitename%", "$sitename", $temp_str2);
+		}
 
 		$linkData = [
 		  'link' => $link,
