@@ -230,6 +230,7 @@ function facebook_connect_create_update_user($fbData) {
 			$user->last_action = date("Y-m-d");
 			$user->last_login = date("Y-m-d");
 			$user->validated = 1;
+			$user->validated_method = 'facebook';
 			$user->language = 'en';			
 			if (!$user->save()) {
 				register_error(elgg_echo('registerbad'));

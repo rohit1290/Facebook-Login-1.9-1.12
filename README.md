@@ -21,7 +21,7 @@ If Facebook user is already registered on your network then this plugin will ass
 **ver 1.9.5**
 - Feature: Admin can modify message, picture and description for posting status on facebook.
 - Feature: Test facebook_connect parameters by visiting the url www.yourelgg.com/mod/facebook_connect/test_param.php
-- Code Cleanup (Deleted unused files)
+- Cleanup: Deleted unused files
  
 **ver 1.9.4**
 - Added few more systemdata tags
