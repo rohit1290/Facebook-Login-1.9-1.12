@@ -320,15 +320,18 @@ function facebook_connect_post_status($fbData) {
 		$picture = $link .'_graphics/elgg_logo.png';
 		$description = $sitename . ' is the social network for connecting people.';
 		
-		if(!empty(elgg_get_plugin_setting('post_message', 'facebook_connect'))){
+		$post_message = elgg_get_plugin_setting('post_message', 'facebook_connect');
+		if(!empty($post_message)){
 		$temp_str = elgg_get_plugin_setting('post_message', 'facebook_connect');
 		$temp_str2 = str_replace("%username%", "$username", $temp_str);
 		$message = str_replace("%sitename%", "$sitename", $temp_str2);
 		}
-		if(!empty(elgg_get_plugin_setting('post_img', 'facebook_connect'))){
+		$post_img = elgg_get_plugin_setting('post_img', 'facebook_connect');
+		if(!empty($post_img)){
 		$picture = elgg_get_plugin_setting('post_img', 'facebook_connect');
 		}
-		if(!empty(elgg_get_plugin_setting('post_descp', 'facebook_connect'))){
+		$post_descp = elgg_get_plugin_setting('post_descp', 'facebook_connect');
+		if(!empty($post_descp)){
 		$temp_str = elgg_get_plugin_setting('post_descp', 'facebook_connect');
 		$temp_str2 = str_replace("%username%", "$username", $temp_str);
 		$description = str_replace("%sitename%", "$sitename", $temp_str2);
