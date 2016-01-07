@@ -3,7 +3,7 @@
 	<name>Facebook Connect</name>
 	<id>facebook_connect</id>
 	<author>Rohit Gupta</author>
-	<version>1.9.5</version>
+	<version>1.9.6</version>
 	<description>Facebook Connect for elgg users for let them login with facebook account</description>
 	<category>service</category>
 	<category>bundled</category>
