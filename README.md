@@ -18,6 +18,12 @@ If Facebook user is already registered on your network then this plugin will ass
 
 ###Changes:
 
+**ver 1.9.6**
+- Merge pull request #4 from lweddewer/patch-1 (Improvement in German Language file)
+- Added admin gatekeeper to test_param file
+- Fixed fatal error "Can't use function return value in write context"
+- Feature: User will be logged in even after they close their browser.
+
 **ver 1.9.5**
 - Feature: Admin can modify message, picture and description for posting status on facebook.
 - Feature: Test facebook_connect parameters by visiting the url www.yourelgg.com/mod/facebook_connect/test_param.php
