@@ -102,7 +102,7 @@ function facebook_connect_login() {
 		if ($users) {
 			if (count($users) == 1) {
 				try {
-					login($users[0]);
+					login($users[0],true);
 					system_message(elgg_echo('facebook_connect:login:success'));
 					elgg_set_plugin_user_setting('access_token', $fbData['user_profile']['accessToken'], $users[0]->guid);
 					if(empty($users[0]->email)) {
@@ -122,7 +122,7 @@ function facebook_connect_login() {
 			$user = facebook_connect_create_update_user($fbData);
 			// login new user
 			try {
-				login($user);
+				login($user,true);
 				system_message(elgg_echo('facebook_connect:login:success'));
 				forward("profile/", 'facebook_connect');
 			} catch (LoginException $e) {
