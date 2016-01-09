@@ -47,7 +47,9 @@ $post_on_facebook_view = elgg_view('input/dropdown', array(
 
 // Posting on Facebook
 
-$post_message_string = elgg_echo('facebook_connect:post_message',array($vars['config']->sitename));
+$title = elgg_get_config('sitename');
+
+$post_message_string = elgg_echo('facebook_connect:post_message',array($title));
 $post_message_view = elgg_view('input/text', array(
 	'name' => 'params[post_message]',
 	'value' => $vars['entity']->post_message,
@@ -61,7 +63,7 @@ $post_img_view = elgg_view('input/url', array(
 	'class' => 'text_input',
 ));
 
-$post_descp_string = elgg_echo('facebook_connect:post_descp',array($vars['config']->sitename));
+$post_descp_string = elgg_echo('facebook_connect:post_descp',array($title));
 $post_descp_view = elgg_view('input/text', array(
 	'name' => 'params[post_descp]',
 	'value' => $vars['entity']->post_descp,

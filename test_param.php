@@ -40,11 +40,11 @@ echo "<br><br>";
 
 
 $link = elgg_get_site_url();
-$username = "Dummy User";
-$sitename = "Site Name";
+$username = elgg_get_logged_in_user_entity()->name;
+$sitename = elgg_get_config('sitename');
 		
 		
-echo "<b><li>".elgg_echo('facebook_connect:post_message',array("ABC Community"))."</li></b>";
+echo "<b><li>".elgg_echo('facebook_connect:post_message',array($sitename))."</li></b>";
 
 if(!empty(elgg_get_plugin_setting('post_message', 'facebook_connect'))){
 $temp_str = elgg_get_plugin_setting('post_message', 'facebook_connect');
@@ -65,7 +65,7 @@ echo "<img src='".$link."/_graphics/elgg_logo.png'>";
 }
 echo "<br><br>";
 
-echo "<b><li>".elgg_echo('facebook_connect:post_descp',array("ABC Community"))."</li></b>";
+echo "<b><li>".elgg_echo('facebook_connect:post_descp',array($sitename))."</li></b>";
 
 if(!empty(elgg_get_plugin_setting('post_descp', 'facebook_connect'))){
 $temp_str = elgg_get_plugin_setting('post_descp', 'facebook_connect');
