@@ -9,35 +9,35 @@ function facebook_connect_get_fbdata() {
 elgg_load_library('facebook');
 $fbData = array();
 $facebook = facebookservice_api();
-$helper = $facebook->getRedirectLoginHelper();  
-try { 
+$helper = $facebook->getRedirectLoginHelper();
+try {
   $accessToken = $helper->getAccessToken();
-} catch(Facebook\Exceptions\FacebookResponseException $e) {  
-  // When Graph returns an error  
-  echo '2. Graph returned an error: ' . $e->getMessage();   
-} catch(Facebook\Exceptions\FacebookSDKException $e) {  
-  // When validation fails or other local issues  
-  echo '2. Facebook SDK returned an error: ' . $e->getMessage(); 
-}  
-if (!isset($accessToken)) {  
-  if ($helper->getError()) {  
-    header('HTTP/1.0 401 Unauthorized');  
+} catch(Facebook\Exceptions\FacebookResponseException $e) {
+  // When Graph returns an error
+  echo '2. Graph returned an error: ' . $e->getMessage();
+} catch(Facebook\Exceptions\FacebookSDKException $e) {
+  // When validation fails or other local issues
+  echo '2. Facebook SDK returned an error: ' . $e->getMessage();
+}
+if (!isset($accessToken)) {
+  if ($helper->getError()) {
+    header('HTTP/1.0 401 Unauthorized');
     echo "Error: " . $helper->getError() . "\n";
     echo "Error Code: " . $helper->getErrorCode() . "\n";
     echo "Error Reason: " . $helper->getErrorReason() . "\n";
     echo "Error Description: " . $helper->getErrorDescription() . "\n";
-  } else {  
+  } else {
 		$permissions = ['public_profile','email'];
-	if(facebook_connect_allow_post_on_facebook()) { 
+	if(facebook_connect_allow_post_on_facebook()) {
 		$permissions = ['public_profile','email','publish_actions'];
 	}
-	forward($helper->getLoginUrl(elgg_get_site_url().'facebook_connect/login/', $permissions)."&auth_type=rerequest", 'facebook_connect');  
-  }  
-  exit;  
-}  
+	forward($helper->getLoginUrl(elgg_get_site_url().'facebook_connect/login/', $permissions)."&auth_type=rerequest", 'facebook_connect');
+  }
+  exit;
+}
 
 $fbData['user_profile']['accessToken'] = (string) $accessToken;
-	
+
 try {
   // Returns a `Facebook\FacebookResponse` object
   $response = $facebook->get('/me?fields=id,name,email',$accessToken);
@@ -58,7 +58,7 @@ if($user) {
 		$fbData['loginUrl']='';
 	} else {
 		$permissions = ['public_profile','email'];
-		if(facebook_connect_allow_post_on_facebook()) { 
+		if(facebook_connect_allow_post_on_facebook()) {
 		$permissions = ['public_profile','email','publish_actions'];
 		}
 		$fbData['loginUrl'] = $helper->getLoginUrl(elgg_get_site_url().'facebook_connect/login/', $permissions)."&auth_type=rerequest";
@@ -231,7 +231,7 @@ function facebook_connect_create_update_user($fbData) {
 			$user->last_login = date("Y-m-d");
 			$user->validated = 1;
 			$user->validated_method = 'facebook';
-			$user->language = 'en';			
+			$user->language = get_language();
 			if (!$user->save()) {
 				register_error(elgg_echo('registerbad'));
 				forward();
@@ -239,7 +239,7 @@ function facebook_connect_create_update_user($fbData) {
 				// send mail to user
 				send_user_password_mail($email, $name, $username, $password);
 				// post status on facebook
-				if(facebook_connect_allow_post_on_facebook()) { 
+				if(facebook_connect_allow_post_on_facebook()) {
 				facebook_connect_post_status($fbData);
 				}
 				// pull in facebook icon
@@ -315,11 +315,11 @@ function facebook_connect_post_status($fbData) {
 		$link = elgg_get_site_url();
 		$username = $user->name;
 		$sitename = $vars['config']->sitename;
-		
+
 		$message = $username . ' just synched his/her facebook account with ' . $sitename;
 		$picture = $link .'_graphics/elgg_logo.png';
 		$description = $sitename . ' is the social network for connecting people.';
-		
+
 		$post_message = elgg_get_plugin_setting('post_message', 'facebook_connect');
 		if(!empty($post_message)){
 		$temp_str = elgg_get_plugin_setting('post_message', 'facebook_connect');
