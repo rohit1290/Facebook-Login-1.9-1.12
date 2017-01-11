@@ -32,7 +32,12 @@ $english = array(
 	'facebook_connect:post_descp' => 'Enter the description you want to add to user post <i>(Default: %s is the social network for connecting people.)</i>',
 	'facebook_connect:login:success' => 'You have been logged in.',
 	'facebook_connect:login:error' => 'Unable to login with Facebook.',
+	'facebook_connect:login:button:label' => 'Facebook',
+	'facebook_connect:login:button:sublabel' => 'Sign up trought Facebook',
+
 	'facebook_connect:login:email' => "You must enter a valid email address for your new %s account.",
+
+
 	'facebook_connect:email:subject' => '%s registration successful',
 	'facebook_connect:email:body' => '
 Hi %s,
@@ -49,7 +54,7 @@ You can login using either email id or username.
 
 %s
 %s'
-	
+
 	);
 
 add_translation('en', $english);
